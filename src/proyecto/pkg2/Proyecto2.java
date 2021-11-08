@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 package proyecto.pkg2;
-import java.io.EOFException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
+
 /**
  *
  * @author Elian Cordova
@@ -21,15 +21,18 @@ public class Proyecto2 {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
+        
+        
         Scanner Leer = new Scanner(System.in);
-        int LeerOpcion;
-        char answer;
-        char answerCourseA = 's';
-        char answerCourseR = 's'; 
-        int leeranswer;
+        int Opcion;
+        char an;
+        char CursosA = 's';
+        char CursosR = 's'; 
+        int leer;
         ObjectOutputStream WriteEstudiante = null;
         ObjectInputStream ReadingEstudiantes = null;
         Estudiantes estudiante;
@@ -37,25 +40,20 @@ public class Proyecto2 {
         
         
         
-        System.out.println(""" 
-                           -----------------------------
-                           Analisis de Datos Estudiantes
-                           -----------------------------
-                           """);
+        System.out.println("-----------------------------\n" + "Analisis de Datos Estudiantes\n" + "-----------------------------\n");
         
         System.out.println("1. Ingreso de datos");
         System.out.println("2. Análisis de Datos ");
         System.out.println("3. Salir");
         
         System.out.println("Ingrese una Opcion: ");
-        LeerOpcion = Integer.valueOf(Leer.nextLine());
+        Opcion = Integer.valueOf(Leer.nextLine());
         
         
-        
-        if(LeerOpcion == 1){
+        if(Opcion == 1){
         try{
             if(Files.exists(Paths.get("Estudiantes.txt"))){
-                WriteEstudiante = new AddingObjectOutputStream(Files.newOutputStream(Paths.get("Estudiantes.txt"), StandardOpenOption.APPEND));
+       WriteEstudiante = new AddingObjectOutputStream(Files.newOutputStream(Paths.get("Estudiantes.txt"), StandardOpenOption.APPEND));
             }else{
                 WriteEstudiante = new ObjectOutputStream(Files.newOutputStream(Paths.get("Estudiantes.txt")));
             }   
@@ -63,11 +61,7 @@ public class Proyecto2 {
                 
             estudiante = new Estudiantes();
             
-            System.out.println("""
-                               ---------------------------------
-                               INGRESE LOS DATOS DEL ESTUDIANTE
-                               ---------------------------------
-                               """);
+            System.out.println("---------------------------------\n" + "INGRESE LOS DATOS DEL ESTUDIANTE\n" + "---------------------------------\n");
             
             System.out.println("NOMBRE: ");
             estudiante.setNombres(Leer.nextLine());
@@ -85,7 +79,7 @@ public class Proyecto2 {
             estudiante.setTotalCreditos(Integer.valueOf(Leer.nextLine()));
             System.out.println("CANTIDAD CURSOS APROBADOS: ");
             estudiante.setCantCursosAprobados(Integer.valueOf(Leer.nextLine()));
-            // need to create bucle to make new question of add other course
+            
             System.out.println("<<<<<<< CURSO APROBADOS >>>>>>>>");
             do{
                 
@@ -103,8 +97,8 @@ public class Proyecto2 {
             estudiante.setFechaCA(Leer.nextLine());
             
             System.out.println("\n Desea Agregar otro Curso Aprobado? (s/n)");
-            answerCourseA = Leer.nextLine().toLowerCase().charAt(0);
-            } while (answerCourseA == 's');
+                CursosA= Leer.nextLine().toLowerCase().charAt(0);
+            } while (CursosA == 's');
             
             // need to create bucle to make new question of add other course
             System.out.println("<<<<<<<<<<< CURSOS REPROBADOS >>>>>>>>>>>");
@@ -122,24 +116,20 @@ public class Proyecto2 {
             System.out.println("FECHA DE APROBACION");
             estudiante.setFechaCR(Leer.nextLine());
             System.out.println("\n Desea Agregar otro Curso Reprobado? (s/n)");
-            answerCourseR = Leer.nextLine().toLowerCase().charAt(0);
-            } while (answerCourseR == 's');
+            CursosR = Leer.nextLine().toLowerCase().charAt(0);
+            } while (CursosR == 's');
             
             WriteEstudiante.writeObject(estudiante);
             System.out.println("\nDatos Ingresados Con Exito!!! \nDesea ingresar Otro Estudiante? (s/n)");
-            answer = Leer.nextLine().toLowerCase().charAt(0);
-        } while (answer == 's');
+            an = Leer.nextLine().toLowerCase().charAt(0);
+        } while (an == 's');
             
             WriteEstudiante.close();
             
         } catch(Exception e){
-        }
-        
-        
+        }     
             
-            
-            
-        } else if(LeerOpcion == 2){
+        } else if(Opcion == 2){
             System.out.println("Vamos a Analisar Datos");
          
         try{
@@ -152,18 +142,12 @@ public class Proyecto2 {
             System.out.println("6. Salir");
             
             System.out.println("Seleccione el reporte que desea Generar");
-            leeranswer = Integer.valueOf(Leer.nextLine());
+            leer = Integer.valueOf(Leer.nextLine());
             
-            if(leeranswer == 1){
+            if(leer == 1){
             
            
-            System.out.println("""
-                                   ----------------------------------------------------------
-                                                 ANALISIS DE DATOS DE ESTUDIANTES
-                                                        Analisis de Datos
-                                                  Datos personales de Estudiantes
-                                   ----------------------------------------------------------
-                                   """);
+            System.out.println("----------------------------------------------------------\n" + "              ANALISIS DE DATOS DE ESTUDIANTES\n" + "                     Analisis de Datos\n" + "               Datos personales de Estudiantes\n" + "----------------------------------------------------------\n");
             System.out.println("Nombres\t\t\t" + "Apellidos\t\t" + "Edad \t" + "Sexo \t\t");
                 ReadingEstudiantes = new ObjectInputStream(Files.newInputStream(Paths.get("Estudiantes.txt")));
             
@@ -173,7 +157,7 @@ public class Proyecto2 {
             } 
             }
             //opcion 2
-            else if(leeranswer == 4){
+            else if(leer == 4){
                 System.out.println("""
                                    ----------------------------------------------------------
                                                  ANALISIS DE DATOS DE ESTUDIANTES
@@ -194,17 +178,14 @@ public class Proyecto2 {
             }
              
         }
-        catch(EOFException endOfFileException){
-            System.out.printf("%s%n", "No hay mas registros");
-        }
-        catch(Exception e){
+        catch(IOException | ClassNotFoundException | NumberFormatException e){
         }
         finally {
            ReadingEstudiantes.close();   
         }
                     
-        } else if (LeerOpcion == 3){
-            System.out.println("Esperamos Verte Pronto!!");
+        } else if (Opcion == 3){
+            System.out.println("Hasta pronto");
         }
     }
     
